@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    cursor: none; /* Hide default cursor */
+    background: #1a1a1a; /* Dark background to see cursor better */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.custom-cursor {
+    width: 32px;
+    height: 32px;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.pointer {
+    width: 100%;
+    height: 100%;
+    background-image: url('./PixelCursor.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    cursor: none;
+    background: #1a1a1a;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.custom-cursor {
+    width: 32px;
+    height: 32px;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    background: url('./PixelCursor.png') no-repeat center/contain;
+}
+
+.content {
+    text-align: center;
+    width: 100%;
+}

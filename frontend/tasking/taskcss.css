@@ -1,0 +1,150 @@
+:root {
+  --main-purple: #1c0c51;
+  --regular: #140938;
+}
+
+body {
+  background-color: var(--regular);
+  overflow-x: hidden;
+}
+
+.back {
+  height: 100vh;
+  width: 100vw;
+}
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(./stars2.svg);
+  /* background-position: 100%; */
+  /* zoom: 95%; */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.vector {
+  width: 60%;
+  position: absolute;
+  top: 56%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* z-index: 10; */
+}
+
+.circle {
+  width: 13%;
+  position: absolute;
+  top: 12%;
+  left: 13%;
+  /* fill: green !important; */
+}
+
+.circle:hover {
+  content: url("./planethover.png"); 
+}
+
+
+.thingy {
+  width: 5%;
+  position: absolute;
+  top: 33%;
+  left: 19%;
+}
+
+.circle1 {
+  width: 10%;
+  position: absolute;
+  top: 22%;
+  left: 74%;
+}
+
+.circle2 {
+  width: 10%;
+  position: absolute;
+  top: 30%;
+  left: 37%;
+}
+
+.circle3 {
+  width: 10%;
+  position: absolute;
+  top: 60%;
+  left: 29%;
+}
+
+.circle4 {
+  width: 10%;
+  position: absolute;
+  top: 80%;
+  left: 47%;
+}
+
+.circle5 {
+  width: 10%;
+  position: absolute;
+  top: 47%;
+  left: 60%;
+}
+
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background-color: #260046;
+}
+
+.list{
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.kid{
+  margin-left: 2rem;
+  color: white;
+  font-size: 20px;
+  padding: 15px 20px;
+  font-family: "Orbitron", serif;
+}
+
+.desc {
+  text-align: center;
+  color: white;
+  
+  
+      border: 5px solid #5f01b1;
+      border-radius: 5%;
+      padding: 50px;
+      margin: 20px;
+    
+}
+
+.nav a{
+  color: white;
+  text-decoration: none;
+}
+
+.kid:hover{
+  background-color: #371357;
+}
+
+.nav-btn{
+  background-color: #5f01b1; 
+border: none;
+border-radius: 5px;
+
+text-align: center;
+padding: 10px 20px;
+color: white;
+}
+
+.tag{
+  text-align: center;
+  color: white;
+  opacity: 80%;
+  font-size: 35px;
+  font-family: "Orbitron", serif;
+  padding-top: 0%;
+}
+

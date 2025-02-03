@@ -1,0 +1,169 @@
+/* Style Sheet */
+
+.main {
+    text-align: center;
+    font-family: "VT323", serif;
+    padding-top: 50px;
+    padding-bottom: 0px;
+    font-size: 100px;
+    color: white;
+    line-height: 400px;
+}
+
+.abttitle {
+    text-align: center;
+    font-family: "VT323", serif;
+    padding-top: 50px;
+    padding-bottom: 0px;
+    font-size: 100px;
+    color: white;
+}
+
+.abttext{
+    border: #260046;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0px;
+}
+
+.main_section {
+    width: 100vw;
+    height: 100vh;
+    background-image:url(./background_image.jpeg);
+    background-size: 100vw 100vh;
+
+}
+
+/* .navbar{
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.navbar ul{
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+nav.navbar {
+    width: 100%;
+    background-color: #333; /* Optional: You can set a background color */
+    /* padding-top: 0px;
+    padding-bottom: 0px;
+    border: 3px #371159;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+/*
+.navbar .container-fluid {
+    width: 100%;
+    padding: 0; /* Optional: Remove padding to allow full-width */
+
+/* 
+.navbar a{
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    text-align: center;
+}
+
+.navbar a:hover{
+    background-color: hsl(0, 0%, 10%);
+} */
+
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    background-color: #260046;
+}
+
+.list{
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.kid{
+    margin-left: 2rem;
+    color: white;
+    font-size: 20px;
+    padding: 15px 20px;
+    font-family: "Orbitron", serif;
+}
+
+.desc {
+    text-align: center;
+    color: white;
+    
+    
+        border: 5px solid #5f01b1;
+        border-radius: 5%;
+        padding: 50px;
+        margin: 20px;
+      
+}
+
+.nav a{
+    color: white;
+    text-decoration: none;
+}
+
+.kid:hover{
+    background-color: #371357;
+}
+
+.nav-btn{
+    background-color: #5f01b1; 
+  border: none;
+  border-radius: 5px;
+  
+  text-align: center;
+  padding: 10px 20px;
+  color: white;
+}
+
+.tag{
+    text-align: center;
+    color: white;
+    opacity: 80%;
+    font-size: 35px;
+    font-family: "Orbitron", serif;
+    padding-top: 0%;
+}   
+
+.div-container {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%; /* Div takes up 50% of the screen width */
+     /* Fixed height */
+    padding: 20px; /* Adds padding inside the div */
+    box-sizing: border-box; /* Ensures padding is included in width/height */
+    border: 2px solid white; /* Border around the div */
+    text-align: center; /* Center text horizontally */
+    overflow: hidden; /* Hides any content that exceeds the div size */
+    place-items: center;
+    align-content: center;  
+    border-radius: 15px;
+}
+
+
+.div-container p{
+    font-size: 35px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    color: white;
+    display: grid;
+    place-items: center;
+    align-content: center;
+}

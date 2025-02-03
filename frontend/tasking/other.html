@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Accuracy Feedback</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        /* General Page Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #12123b;
+            background-size: 100vw 100vh;
+            color: white;
+            font-family: "Orbitron", sans-serif;
+            text-align: center;
+        }
+
+        /* Navbar Styling */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background-color: #260046;
+        }
+
+        /* Main Container */
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: rgba(26, 26, 74, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            border: 5px solid #5f01b1;
+            box-shadow: 0 0 20px rgba(95, 1, 177, 0.8);
+        }
+
+        /* Money Counter Styling */
+        .money-counter {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #4caf50;
+        }
+
+        /* Image Styling */
+        .image-container {
+            background-color: black;
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px; /* Add space below the image */
+        }
+        #database-image {
+            width: 200px; /* Set the width to a wallet size */
+            height: auto; /* Maintain aspect ratio */
+        }
+        #radio-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px; /* Add space below the radio buttons */
+        }
+        #comment-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px; /* Add space below the comment box */
+        }
+        #comment-box textarea {
+            width: 100%;
+            max-width: 800px; /* Increase the max-width */
+            height: 300px; /* Increase the height */
+            margin-top: 10px;
+            padding: 10px; /* Add some padding for better readability */
+            font-size: 16px; /* Increase the font size for better readability */
+            border-radius: 5px; /* Add some border radius for a smoother look */
+            border: 1px solid #ccc; /* Add a border */
+            background-color: rgba(255, 255, 255, 0.1); /* Light background color */
+            color: white; /* Dark text color */
+        }
+        #labels-container {
+            text-align: center;
+            margin-bottom: 20px; /* Add space below the labels container */
+        }
+        #labels-list {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0; /* Remove default padding */
+            margin: 0; /* Remove default margin */
+        }
+        /* Submit Button */
+        .submit {
+            background-color: #4caf50;
+            padding: 12px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            margin-bottom: 20px; /* Add space below the submit button */
+            font-family: "Orbitron", sans-serif; /* Ensure the same font is used */
+            border: none; /* Remove default border */
+            border-radius: 5px; /* Add border radius */
+            color: white; /* Text color */
+        }
+
+        .submit:hover {
+            background-color: #45a049;
+        }
+
+        /* Footer Tag */
+        .tag {
+            text-align: center;
+            color: white;
+            opacity: 80%;
+            font-size: 35px;
+            font-family: "Orbitron", serif;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="money-counter">
+            Money Earned: $<span id="money-counter">0</span>
+        </div>
+        <div class="image-container">
+            <img id="database-image" src="" alt="Image from Database">
+        </div>
+        <div id="labels-container">
+            <ul id="labels-list"></ul>
+        </div>
+        <form id="feedback-form" onsubmit="return handleSubmit(event)">
+            <div id="radio-buttons">
+                <label>
+                    <input type="radio" name="response" value="yes" required> Yes
+                </label>
+                <label>
+                    <input type="radio" name="response" value="no" required> No
+                </label>
+                <label>
+                    <input type="radio" name="response" value="dont-know" required> I don't know
+                </label>
+            </div>
+            <div id="comment-box">
+                <textarea id="comments" name="comments" placeholder="How accurate is the AI? Was the response correct?" required></textarea>
+            </div>
+            <button type="submit" class="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        let labels = [];
+        let moneyEarned = 0;
+        const moneyPerSubmission = 5; // Amount to increase per submission
+
+        function validateForm() {
+            const comments = document.getElementById('comments').value;
+            if (comments.trim() === "") {
+                alert("Please enter a comment.");
+                return false;
+            }
+            return true;
+        }
+
+        async function fetchImageAndLabels() {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/labels');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                labels = await response.json();
+                console.log(labels);
+                displayImageAndLabels();
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+            }
+        }
+
+        function displayImageAndLabels() {
+            if (currentIndex >= labels.length) {
+                alert("No more images.");
+                return;
+            }
+            const imageLabel = labels[currentIndex];
+            const imageUrl = imageLabel.image_url;
+            document.getElementById('database-image').src = imageUrl;
+
+            const labelsList = document.getElementById('labels-list');
+            labelsList.innerHTML = ''; // Clear any existing content
+
+            labels.forEach(label => {
+                if (label.image_url === imageUrl) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `AI Label: ${label.ai_label}`;
+                    labelsList.appendChild(listItem);
+                }
+            });
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            if (!validateForm()) {
+                return;
+            }
+
+            const formData = new FormData(event.target);
+            const response = formData.get('response');
+            const comments = formData.get('comments');
+
+            console.log(`Response: ${response}, Comments: ${comments}`);
+
+            // Increase the money counter
+            moneyEarned += moneyPerSubmission;
+            document.getElementById('money-counter').textContent = moneyEarned;
+
+            // Move to the next image
+            currentIndex++;
+            displayImageAndLabels();
+
+            // Clear the form
+            event.target.reset();
+        }
+
+        // Call the fetchImageAndLabels function when the page loads
+        window.onload = fetchImageAndLabels;
+    </script>
+</body>
+</html>

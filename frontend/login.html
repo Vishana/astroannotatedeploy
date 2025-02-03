@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=VT323&display=swap" rel="stylesheet">
+    <!-- Importing the Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script type="module">
+      // Import Firebase modules (Modular SDK)
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+      import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+      
+      // Your Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCVRBnYFR2CWdPjUCbQ9Jx5RGXVCtlxUyk",
+        authDomain: "astroannotate.firebaseapp.com",
+        projectId: "astroannotate",
+        storageBucket: "astroannotate.firebasestorage.app",
+        messagingSenderId: "762532309639",
+        appId: "1:762532309639:web:20d1afdb11663736046622"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Login functionality
+      const loginButton = document.getElementById('login-button');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      
+      loginButton.addEventListener('click', async () => {
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        
+        try {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          console.log('User signed in:', userCredential.user);
+          document.getElementById('user-info').style.display = 'block';
+          document.getElementById('login-form').style.display = 'none';
+        } catch (error) {
+          console.error('Error signing in:', error);
+        }
+      });
+
+      // Handle auth state change
+      onAuthStateChanged(auth, user => {
+        if (user) {
+          document.getElementById('user-name').textContent = user.email;
+        } else {
+          console.log('No user signed in');
+        }
+      });
+    </script>
+
+    <style>
+      /* Basic Reset */
+      body {
+        margin: 0;
+        font-family: 'Orbitron', sans-serif;
+        background-color: #260046;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url(./background_image.jpeg);
+        background-size: 100vw 100vh;
+      }
+  
+      .login-container {
+        background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black background */
+        border-radius: 10px;
+        padding: 30px;
+        width: 100%;
+        max-width: 400px;
+        box-sizing: border-box;
+      }
+  
+
+      h1 {
+        text-align: center;
+        font-family: "VT323", serif;
+        font-size: 50px;
+        color: white;
+        padding-bottom: 20px;
+        margin-top: 0;
+      }
+  
+      label {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      input {
+        width: 90%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #5f01b1;
+        background-color: #371159;
+        color: white;
+        font-size: 16px;
+      }
+  
+      button {
+        width: 100%;
+        padding: 12px;
+        background-color: #5f01b1;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        color: white;
+      }
+
+      button:hover {
+        background-color: #371357;
+      }
+  
+    .forgot-password {
+      display: block;
+      margin-top: 10px;
+      text-align: center;
+      font-size: 14px;
+      color: #5f01b1;
+      text-decoration: none;
+    }
+
+    .forgot-password:hover {
+        text-decoration: underline;
+      }
+  
+      .user-info {
+        text-align: center;
+        margin-top: 20px;
+      }
+  
+      .start-tasks-btn {
+        background-color: #5f01b1;
+        margin-top: 10px;
+        border-radius: 5px;
+        padding: 10px 20px;
+        color: white;
+        cursor: pointer;
+        text-decoration: none;
+      }
+  
+      .start-tasks-btn:hover {
+        background-color: #371357;
+      }
+      </style>
+  </head>
+
+  <body>
+    <div class="login-container">
+      <h1>Login</h1>
+      <div id="login-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="Enter your password" required />
+        <button id="login-button">Login</button>
+        <a href="#" class="forgot-password">Forgot Password?</a>
+      </div>
+      <div id="user-info" class="user-info" style="display: none;">
+        <h2>Welcome, <span id="user-name"></span>!</h2>
+        <a href="tasking/mytasks.html" class="start-tasks-btn">Start Tasks</a>
+      </div>
+    </div>
+  </body>
+</html>

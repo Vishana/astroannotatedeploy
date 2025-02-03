@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image with Radio Buttons</title>
+    <style>
+        body {
+            display: grid;
+            grid-template-rows: auto auto 1fr auto;
+            gap: 20px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        #image-container {
+            text-align: center;
+        }
+        #radio-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        #comment-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #comment-box textarea {
+            width: 100%;
+            max-width: 600px;
+            height: 100px;
+            margin-top: 10px;
+        }
+        #labels-container {
+            text-align: center;
+        }
+        #labels-list {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="return validateForm()">
+        <div id="image-container">
+            <!-- Image will be loaded here from the database -->
+            <img id="database-image" src="" alt="Image from Database">
+        </div>
+        <div id="radio-buttons">
+            <label>
+                <input type="radio" name="response" value="yes"> Yes
+            </label>
+            <label>
+                <input type="radio" name="response" value="no"> No
+            </label>
+            <label>
+                <input type="radio" name="response" value="dont-know"> I don't know
+            </label>
+        </div>
+        <div id="comment-box">
+            <label for="comments">Comments (mandatory):</label>
+            <textarea id="comments" name="comments" required></textarea>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="labels-container">
+        <h2>Labels</h2>
+        <ul id="labels-list"></ul>
+    </div>
+
+    <script>
+        function validateForm() {
+            const comments = document.getElementById('comments').value;
+            if (comments.trim() === "") {
+                alert("Please enter a comment.");
+                return false;
+            }
+            return true;
+        }
+
+        // Fetch labels from the API and display them
+        async function fetchLabels() {
+            const response = await fetch('http://127.0.0.1:5000/api/labels');
+            const labels = await response.json();
+            console.log(labels);
+
+            const labelsList = document.getElementById('labels-list');
+            labelsList.innerHTML = ''; // Clear any existing content
+
+            labels.forEach(label => {
+                const listItem = document.createElement('li');
+                document.getElementById('database-image').src = label.image_url;
+                listItem.textContent = `Image URL: ${label.image_url}, AI Label: ${label.ai_label}`;
+                labelsList.appendChild(listItem);
+            });
+        }
+
+        // Call the fetchLabels function when the page loads
+        window.onload = fetchLabels;
+    </script>
+</body>
+</html>
