@@ -1,0 +1,36 @@
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs and system files
+*.log
+*.lock
+*.pid
+*.swp
+*.swo
+
+# Python (Flask & SQLite)
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+instance/
+*.sqlite3
+*.db
+
+# Node.js
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Frontend (HTML, CSS, JavaScript)
+dist/
+build/
+coverage/
+
+# Environment & Configs
+.env
+.env.local
+config.json
+firebaseconfig.js
